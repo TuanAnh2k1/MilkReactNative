@@ -121,6 +121,7 @@ const Shirt = (props: {navigation: any}) => {
           title={'List Shirt'}
           style={{backgroundColor: GetColors().MAIN}}
           titleStyle={{color: GetColors().WHITE}}
+          onPressLeft={() => navigation.navigate('Home')}
         />
         <View style={styles.textInput}>
           <TextInput

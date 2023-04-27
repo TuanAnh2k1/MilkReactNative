@@ -17,12 +17,9 @@ const ShirtItem = (props: Props) => {
   return (
     <Pressable style={styles.container} onPress={props.onPress}>
       {props.image === '1' ? (
-        <Image
-          source={require('../assets/ao_phong.jpg')}
-          style={styles.image}
-        />
+        <Image source={require('../assets/sua1.jpg')} style={styles.image} />
       ) : (
-        <Image source={require('../assets/ao_somi.jpg')} style={styles.image} />
+        <Image source={require('../assets/sua2.jpg')} style={styles.image} />
       )}
 
       <View style={styles.itemContainer}>

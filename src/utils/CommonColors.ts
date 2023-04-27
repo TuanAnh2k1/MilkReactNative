@@ -1,5 +1,5 @@
 const COLORS = {
-  MAIN: '#0FA44A',
+  MAIN: '#33CCFF',
   WHITE: '#FFFFFF',
   BORDER: '#ECEDEE',
   BG: '#F5F5F5',

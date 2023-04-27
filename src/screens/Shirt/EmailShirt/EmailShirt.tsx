@@ -95,12 +95,12 @@ const EmailShirt = (props: {navigation: any}) => {
         <View style={styles.contentImage}>
           {data.image === '1' ? (
             <Image
-              source={require('../../../assets/ao_phong.jpg')}
+              source={require('../../../assets/sua1.jpg')}
               style={styles.image}
             />
           ) : (
             <Image
-              source={require('../../../assets/ao_somi.jpg')}
+              source={require('../../../assets/sua2.jpg')}
               style={styles.image}
             />
           )}

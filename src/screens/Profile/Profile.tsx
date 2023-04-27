@@ -49,6 +49,20 @@ const Profile = (props: {navigation: any}) => {
     handleProfile();
   }, [props]);
 
+  const storeData = async (key: string, value: string) => {
+    try {
+      await AsyncStorage.setItem(key, value);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleLogout = () => {
+    storeData('user', '');
+    storeData('role', '');
+    navigation.navigate('SignIn');
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.container}>
@@ -56,6 +70,7 @@ const Profile = (props: {navigation: any}) => {
           title={'Profile'}
           style={{backgroundColor: GetColors().MAIN}}
           titleStyle={{color: GetColors().WHITE}}
+          onPressLeft={() => navigation.navigate('Home')}
         />
         {loading ? (
           <Loading />
@@ -72,16 +87,27 @@ const Profile = (props: {navigation: any}) => {
                   <Text style={styles.textInput}>Phone: {profile.sdt}</Text>
                   <Text style={styles.textInput}>Gender: {profile.gender}</Text>
                 </View>
-                <View>
-                  <Button
-                    title="Sửa thông tin cá nhân"
-                    onPress={() => {
-                      navigation.navigate('UpdateProfile', {
-                        profile: profile,
-                        dataUserId: dataUserId,
-                      });
-                    }}
-                  />
+                <View style={styles.btn}>
+                  <View style={styles.btnContent}>
+                    <Button
+                      title="Đăng xuất"
+                      color={GetColors().RED500}
+                      onPress={() => {
+                        handleLogout();
+                      }}
+                    />
+                  </View>
+                  <View style={styles.btnContent}>
+                    <Button
+                      title="Sửa thông tin cá nhân"
+                      onPress={() => {
+                        navigation.navigate('UpdateProfile', {
+                          profile: profile,
+                          dataUserId: dataUserId,
+                        });
+                      }}
+                    />
+                  </View>
                 </View>
               </View>
             ) : (
@@ -89,16 +115,27 @@ const Profile = (props: {navigation: any}) => {
                 <View>
                   <Text style={styles.textInput}>Vui lòng tạo profile</Text>
                 </View>
-                <View>
-                  <Button
-                    title="Thêm mới thông tin cá nhân"
-                    onPress={() => {
-                      navigation.navigate('CreateProfile', {
-                        profile: profile,
-                        dataUserId: dataUserId,
-                      });
-                    }}
-                  />
+                <View style={styles.btn}>
+                  <View style={styles.btnContent}>
+                    <Button
+                      title="Đăng xuất"
+                      color={GetColors().RED500}
+                      onPress={() => {
+                        handleLogout();
+                      }}
+                    />
+                  </View>
+                  <View style={styles.btnContent}>
+                    <Button
+                      title="Thêm mới thông tin cá nhân"
+                      onPress={() => {
+                        navigation.navigate('CreateProfile', {
+                          profile: profile,
+                          dataUserId: dataUserId,
+                        });
+                      }}
+                    />
+                  </View>
                 </View>
               </View>
             )}
@@ -135,6 +172,15 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: '700',
     color: GetColors().RED500,
+  },
+  btn: {
+    flex: 1,
+    flexDirection: 'row',
+  },
+  btnContent: {
+    flex: 1,
+    borderRadius: 3,
+    paddingHorizontal: 4,
   },
 });
 

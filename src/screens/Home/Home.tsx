@@ -8,7 +8,7 @@ const Home = (props: {navigation: any}) => {
   const getDataUser = async () => {
     try {
       const value = await AsyncStorage.getItem('role');
-      if (value !== null) {
+      if (value !== null || value || '') {
         navigation.navigate('Shirt', {user: value});
       } else {
         navigation.navigate('SignIn');
@@ -21,7 +21,7 @@ const Home = (props: {navigation: any}) => {
   const getDataProfile = async () => {
     try {
       const value = await AsyncStorage.getItem('user');
-      if (value !== null) {
+      if (value !== null || value || '') {
         navigation.navigate('Profile', {user: value});
       } else {
         navigation.navigate('SignIn');

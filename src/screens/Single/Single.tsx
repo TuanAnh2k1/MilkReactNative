@@ -104,7 +104,7 @@ const Single = (props: {navigation: any}) => {
               <View style={styles.list}>
                 <View style={styles.contentImage}>
                   <Image
-                    source={require('../../assets/ao_phong.jpg')}
+                    source={require('../../assets/sua1.jpg')}
                     style={styles.image}
                   />
                   <View style={styles.contentShirt}>
