@@ -13,6 +13,7 @@ const COLORS = {
   RED500: 'rgba(255, 77, 79, 1)',
   REDNOTI: '#FF4D4F',
   BG_MODAL: 'rgba(9, 30, 66, 0.7)',
+  TEXT_CONTENT: '#0FA44A',
 };
 
 const GetColors = () => {

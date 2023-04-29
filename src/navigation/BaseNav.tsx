@@ -7,17 +7,18 @@ import AddMembers from '../screens/AddMembers/AddMembers';
 import Home from '../screens/Home/Home';
 import ProductsScreens from '../screens/ProductsScreens/ProductsScreen';
 import QRCodeInvite from '../screens/QrCode/QRCodeInvite';
-import AddShirt from '../screens/Shirt/AddShirt/AddShirt';
-import EmailShirt from '../screens/Shirt/EmailShirt/EmailShirt';
-import Shirt from '../screens/Shirt/Shirt';
-import ShirtDetail from '../screens/Shirt/ShirtDetail/ShirtDetail';
+import AddMilk from '../screens/Milk/AddMilk/AddMilk';
+import EmailMilk from '../screens/Milk/EmailMilk/EmailMilk';
+import Milk from '../screens/Milk/Milk';
+import MilkDetail from '../screens/Milk/MilkDetail/MilkDetail';
 import SignInScreen from '../screens/SignInScreen';
 import SignUpScreen from '../screens/SignUpScreen';
 import Single from '../screens/Single/Single';
-import Card from '../screens/Shirt/Card/Card';
+import Card from '../screens/Milk/Card/Card';
 import Profile from '../screens/Profile/Profile';
 import UpdateProfile from '../screens/Profile/UpdateProfile';
 import CreateProfile from '../screens/Profile/CreateProfile';
+import MilkUpdate from '../screens/Milk/MilkDetail/MilkUpdate';
 
 const Stack = createStackNavigator();
 
@@ -26,9 +27,14 @@ function StackNavigator() {
     <Stack.Navigator>
       <Stack.Screen
         options={{headerShown: false}}
+        name="Milk"
+        component={Milk}
+      />
+      {/* <Stack.Screen
+        options={{headerShown: false}}
         name="Home"
         component={Home}
-      />
+      /> */}
       <Stack.Screen
         options={{headerShown: false}}
         name="Product"
@@ -51,23 +57,23 @@ function StackNavigator() {
       />
       <Stack.Screen
         options={{headerShown: false}}
-        name="Shirt"
-        component={Shirt}
+        name="MilkDetail"
+        component={MilkDetail}
       />
       <Stack.Screen
         options={{headerShown: false}}
-        name="ShirtDetail"
-        component={ShirtDetail}
+        name="EmailMilk"
+        component={EmailMilk}
       />
       <Stack.Screen
         options={{headerShown: false}}
-        name="EmailShirt"
-        component={EmailShirt}
+        name="AddMilk"
+        component={AddMilk}
       />
       <Stack.Screen
         options={{headerShown: false}}
-        name="AddShirt"
-        component={AddShirt}
+        name="UpdateMilk"
+        component={MilkUpdate}
       />
       <Stack.Screen
         options={{headerShown: false}}

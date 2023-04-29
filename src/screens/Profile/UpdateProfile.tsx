@@ -32,7 +32,6 @@ const UpdateProfile = (props: {navigation: any}) => {
     setBirthday(profile.birthday);
     setEmail(profile.email);
     setGender(profile.gender);
-    setLoading(profile.gender);
     setLoading(false);
   }, [
     profile.address,
@@ -57,7 +56,7 @@ const UpdateProfile = (props: {navigation: any}) => {
       // Gửi thông tin đăng nhập đến API
       console.log('profile--------', name, dataUserId);
       setLoading(true);
-      await fetch('https://musicfivestar.onrender.com/profile/updateProfile', {
+      await fetch('https://milknodejs.onrender.com/profile/updateProfile', {
         method: 'PATCH',
         headers: {
           Accept: 'application/json',
@@ -102,7 +101,7 @@ const UpdateProfile = (props: {navigation: any}) => {
           style={{backgroundColor: GetColors().MAIN}}
           titleStyle={{color: GetColors().WHITE}}
           onPressLeft={() => {
-            navigation.navigate('Home');
+            navigation.navigate('Milk');
           }}
         />
         {loading ? (

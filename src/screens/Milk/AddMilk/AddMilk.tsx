@@ -10,7 +10,7 @@ import {
 import {NavBar} from '../../../components';
 import GetColors from '../../../utils/CommonColors';
 
-const AddShirt = (props: {navigation: any}) => {
+const AddMilk = (props: {navigation: any}) => {
   const {navigation} = props;
   const [name, setName] = useState('');
   const [describe, setDescribe] = useState('');
@@ -19,10 +19,10 @@ const AddShirt = (props: {navigation: any}) => {
   const [supplier, setSupplier] = useState('');
   const [total, setTotal] = useState('');
 
-  const handleAddShirt = async () => {
+  const handleAddMilk = async () => {
     // Gửi thông tin đăng nhập đến API
     console.log(name, describe, image, price, supplier);
-    await fetch('https://musicfivestar.onrender.com/shirt/createShirt', {
+    await fetch('https://milknodejs.onrender.com/milk/createMilk', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -43,7 +43,7 @@ const AddShirt = (props: {navigation: any}) => {
         if (json.message) {
           // Tạo tài khoản thành công
           console.log(json?.message?.msgBody);
-          navigation.navigate('Shirt', {loading: true});
+          navigation.navigate('Milk', {loading: true});
         } else {
           // Tạo tài khoản thất bại
           console.log(json.error);
@@ -63,11 +63,11 @@ const AddShirt = (props: {navigation: any}) => {
   return (
     <View style={styles.container}>
       <NavBar
-        title={'Add Shirt'}
+        title={'Add Milk'}
         style={{backgroundColor: GetColors().MAIN}}
         titleStyle={{color: GetColors().WHITE}}
         onPressLeft={() => {
-          navigation.navigate('Shirt');
+          navigation.navigate('Milk');
         }}
       />
       <ScrollView style={styles.content}>
@@ -136,11 +136,7 @@ const AddShirt = (props: {navigation: any}) => {
         </View>
       </ScrollView>
       <View style={styles.btn}>
-        <Button
-          title="Create Shirt"
-          color={'tomato'}
-          onPress={handleAddShirt}
-        />
+        <Button title="Create Milk" color={'tomato'} onPress={handleAddMilk} />
       </View>
     </View>
   );
@@ -177,4 +173,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AddShirt;
+export default AddMilk;

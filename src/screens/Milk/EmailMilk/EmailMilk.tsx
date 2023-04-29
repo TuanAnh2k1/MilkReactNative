@@ -18,7 +18,7 @@ const isValidEmail = checkEmail => {
   return emailRegex.test(checkEmail);
 };
 
-const EmailShirt = (props: {navigation: any}) => {
+const EmailMilk = (props: {navigation: any}) => {
   const {navigation} = props;
   const data = props.route.params.data;
   const quantity = props.route.params.quantity;
@@ -43,14 +43,14 @@ const EmailShirt = (props: {navigation: any}) => {
 
   const handlePress = async () => {
     if (isValidEmail(emailPush)) {
-      await fetch('https://musicfivestar.onrender.com/single/createSingle', {
+      await fetch('https://milknodejs.onrender.com/single/createSingle', {
         method: 'POST',
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          idShirt: data._id,
+          idMilk: data._id,
           idUser: dataUser,
           name: data.name,
           describe: data.describe,
@@ -69,7 +69,7 @@ const EmailShirt = (props: {navigation: any}) => {
           // Xử lý phản hồi từ API
           if (json.message) {
             // Tạo đơn hàng thành công
-            navigation.navigate('Shirt');
+            navigation.navigate('Milk');
           } else {
             // Tạo đơn hàng thất bại
             console.log(json.error);
@@ -87,7 +87,7 @@ const EmailShirt = (props: {navigation: any}) => {
     <View style={styles.container}>
       <NavBar
         title={'Xác Nhận'}
-        onPressLeft={() => navigation.navigate('ShirtDetail', {data: data})}
+        onPressLeft={() => navigation.navigate('MilkDetail', {data: data})}
         style={{backgroundColor: GetColors().MAIN}}
         titleStyle={{color: GetColors().WHITE}}
       />
@@ -104,7 +104,7 @@ const EmailShirt = (props: {navigation: any}) => {
               style={styles.image}
             />
           )}
-          <View style={styles.contentShirt}>
+          <View style={styles.contentMilk}>
             <Text style={styles.name}>{data.name}</Text>
             <Text style={styles.supplier}>{data.supplier}</Text>
             <Text style={styles.price}>Đơn giá: {data.price} vnđ/chiếc</Text>
@@ -170,7 +170,7 @@ const styles = StyleSheet.create({
     width: '40%',
     height: 200,
   },
-  contentShirt: {
+  contentMilk: {
     flex: 1,
   },
   name: {
@@ -230,4 +230,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default EmailShirt;
+export default EmailMilk;

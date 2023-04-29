@@ -11,9 +11,7 @@ export interface Props {
   onPress(): void;
 }
 
-const ShirtItem = (props: Props) => {
-  console.log('11111111: ', props.image);
-
+const MilkItem = (props: Props) => {
   return (
     <Pressable style={styles.container} onPress={props.onPress}>
       {props.image === '1' ? (
@@ -27,7 +25,6 @@ const ShirtItem = (props: Props) => {
         <Text style={styles.describe}>{props.describe}</Text>
       </View>
       <Text style={styles.price}>{props.price}vnđ</Text>
-      <Image source={props.arrowRight} style={styles.imageLink} />
     </Pressable>
   );
 };
@@ -59,12 +56,13 @@ const styles = StyleSheet.create({
   name: {
     marginLeft: 16,
     fontSize: 16,
+    fontWeight: '600',
     lineHeight: 22,
     color: GetColors().TEXT_MAIN,
   },
   describe: {
     marginLeft: 16,
-    fontSize: 16,
+    fontSize: 14,
     lineHeight: 22,
     color: GetColors().TEXT_MAIN,
   },
@@ -78,4 +76,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ShirtItem;
+export default MilkItem;

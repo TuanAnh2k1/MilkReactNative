@@ -7,21 +7,54 @@ import {
   Image,
   Text,
   Button,
+  Alert,
 } from 'react-native';
 import {NavBar} from '../../../components';
 import GetColors from '../../../utils/CommonColors';
 
-const ShirtDetail = (props: {navigation: any}) => {
+const MilkDetail = (props: {navigation: any}) => {
   const {navigation} = props;
   const data = props.route.params.data;
+  const dataUser = props.route.params.dataUser;
   const [quantity, setQuantity] = useState(1);
   const totals = Number(data.total);
+
+  const [loading, setLoading] = useState(Boolean);
+
+  const handleDelete = async () => {
+    setLoading(true);
+    await fetch('https://milknodejs.onrender.com/milk/deleteMilk', {
+      method: 'DELETE',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        _id: data._id,
+      }),
+    })
+      .then(response => response.json())
+      .then(json => {
+        // Xử lý phản hồi từ API
+        if (json.message) {
+          // Update milk thành công
+          setLoading(false);
+          navigation.navigate('Milk', {loading: true});
+        } else {
+          // Update milk thất bại
+          console.log(json.error);
+        }
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
 
   return (
     <View style={styles.container}>
       <NavBar
-        title={'Shirt Detail'}
-        onPressLeft={() => navigation.navigate('Shirt')}
+        title={'Milk Detail'}
+        onPressLeft={() => navigation.navigate('Milk')}
         style={{backgroundColor: GetColors().MAIN}}
         titleStyle={{color: GetColors().WHITE}}
       />
@@ -39,7 +72,7 @@ const ShirtDetail = (props: {navigation: any}) => {
             />
           )}
         </View>
-        <View style={styles.contentShirt}>
+        <View style={styles.contentMilk}>
           <Text style={styles.name}>{data.name}</Text>
           <Text style={styles.supplier}>{data.supplier}</Text>
         </View>
@@ -73,12 +106,49 @@ const ShirtDetail = (props: {navigation: any}) => {
         </View>
         <Text style={styles.describe}>{data.describe}</Text>
       </ScrollView>
-      <View style={styles.btnContent}>
+      {dataUser === 'admin' && (
+        <View style={styles.btnContent}>
+          <View style={styles.btnText}>
+            <Button
+              title="Xóa sản phẩm"
+              color={GetColors().RED500}
+              onPress={() => {
+                Alert.alert(
+                  'Xác nhận xóa sản phẩm',
+                  'Bạn có chắc muốn xóa sản phẩm này không?',
+                  [
+                    {
+                      text: 'Hủy',
+                      style: 'cancel',
+                    },
+                    {
+                      text: 'Xóa',
+                      onPress: () => handleDelete(),
+                    },
+                  ],
+                );
+              }}
+            />
+          </View>
+          <View style={styles.btnText}>
+            <Button
+              title="Cập nhật sản phẩm"
+              onPress={() => {
+                navigation.navigate('UpdateMilk', {
+                  data: data,
+                  dataUser: dataUser,
+                });
+              }}
+            />
+          </View>
+        </View>
+      )}
+      <View style={styles.btnSingle}>
         <Button
           title="Đặt hàng"
           color={GetColors().MAIN}
           onPress={() => {
-            navigation.navigate('EmailShirt', {
+            navigation.navigate('EmailMilk', {
               data: data,
               quantity: quantity,
             });
@@ -105,7 +175,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 300,
   },
-  contentShirt: {
+  contentMilk: {
     flex: 1,
     flexDirection: 'row',
   },
@@ -124,7 +194,7 @@ const styles = StyleSheet.create({
   },
   supplier: {
     fontSize: 16,
-    color: GetColors().REDNOTI,
+    color: GetColors().TEXT_CONTENT,
     paddingHorizontal: 16,
     paddingVertical: 8,
   },
@@ -147,6 +217,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     paddingHorizontal: 16,
     paddingBottom: 8,
+    flex: 1,
   },
   total: {
     color: GetColors().BLACK900,
@@ -154,6 +225,7 @@ const styles = StyleSheet.create({
   },
   errorTotal: {
     color: GetColors().RED500,
+    flex: 1,
   },
   describe: {
     fontSize: 14,
@@ -166,7 +238,16 @@ const styles = StyleSheet.create({
   btnContent: {
     paddingVertical: 8,
     paddingHorizontal: 8,
+    flexDirection: 'row',
+  },
+  btnSingle: {
+    paddingVertical: 8,
+    paddingHorizontal: 11,
+  },
+  btnText: {
+    flex: 1,
+    paddingHorizontal: 4,
   },
 });
 
-export default ShirtDetail;
+export default MilkDetail;

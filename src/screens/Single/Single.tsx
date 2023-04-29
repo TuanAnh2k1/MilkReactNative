@@ -16,7 +16,7 @@ const Single = (props: {navigation: any}) => {
       // Gửi thông tin đăng nhập đến API
       setLoading(true);
       const dataUser = await AsyncStorage.getItem('user');
-      await fetch('https://musicfivestar.onrender.com/single/getSingle', {
+      await fetch('https://milknodejs.onrender.com/single/getSingle', {
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -49,7 +49,7 @@ const Single = (props: {navigation: any}) => {
     item.status = 1;
     console.log(item);
 
-    fetch('https://musicfivestar.onrender.com/single/updateSingle', {
+    fetch('https://milknodejs.onrender.com/single/updateSingle', {
       method: 'PATCH',
       headers: {
         Accept: 'application/json',
@@ -57,7 +57,7 @@ const Single = (props: {navigation: any}) => {
       },
       body: JSON.stringify({
         _id: item._id,
-        idShirt: item.idShirt,
+        idMilk: item.idMilk,
         idUser: item.idUser,
         name: item.name,
         describe: item.describe,
@@ -91,7 +91,7 @@ const Single = (props: {navigation: any}) => {
     <View style={styles.container}>
       <NavBar
         title={'Đơn hàng của tôi'}
-        onPressLeft={() => navigation.navigate('Shirt')}
+        onPressLeft={() => navigation.navigate('Milk')}
         style={{backgroundColor: GetColors().MAIN}}
         titleStyle={{color: GetColors().WHITE}}
       />
@@ -107,7 +107,7 @@ const Single = (props: {navigation: any}) => {
                     source={require('../../assets/sua1.jpg')}
                     style={styles.image}
                   />
-                  <View style={styles.contentShirt}>
+                  <View style={styles.contentMilk}>
                     <Text style={styles.name}>{item.name}</Text>
                     <Text style={styles.supplier}>{item.supplier}</Text>
                     <Text style={styles.price}>
@@ -175,7 +175,7 @@ const styles = StyleSheet.create({
     width: '40%',
     height: 200,
   },
-  contentShirt: {
+  contentMilk: {
     flex: 1,
   },
   name: {

@@ -37,7 +37,7 @@ const CreateProfile = (props: {navigation: any}) => {
       // Gửi thông tin đăng nhập đến API
       console.log('profile--------', name, dataUserId);
       setLoading(true);
-      await fetch('https://musicfivestar.onrender.com/profile/createProfile', {
+      await fetch('https://milknodejs.onrender.com/profile/createProfile', {
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -81,7 +81,7 @@ const CreateProfile = (props: {navigation: any}) => {
           style={{backgroundColor: GetColors().MAIN}}
           titleStyle={{color: GetColors().WHITE}}
           onPressLeft={() => {
-            navigation.navigate('Home');
+            navigation.navigate('Milk');
           }}
         />
         {loading ? (

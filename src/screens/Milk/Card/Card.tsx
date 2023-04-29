@@ -34,7 +34,7 @@ const Card = (props: {navigation: any}) => {
     } else {
       // Gửi thông tin đăng nhập đến API
       setLoading(true);
-      await fetch('https://musicfivestar.onrender.com/card/getCard', {
+      await fetch('https://milknodejs.onrender.com/card/getCard', {
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -82,7 +82,7 @@ const Card = (props: {navigation: any}) => {
             style={{backgroundColor: GetColors().MAIN}}
             titleStyle={{color: GetColors().WHITE}}
             onPressLeft={() => {
-              navigation.navigate('Shirt');
+              navigation.navigate('Milk');
             }}
           />
 

@@ -10,15 +10,15 @@ import {
 } from 'react-native';
 import {NavBar} from '../../components';
 import GetColors from '../../utils/CommonColors';
-import ShirtItem from '../../components/ShirtItem';
+import MilkItem from '../../components/MilkItem';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Loading from '../../components/Loading';
 
-const Shirt = (props: {navigation: any}) => {
+const Milk = (props: {navigation: any}) => {
   const {navigation} = props;
   const [dataUser, setDataUser] = useState('');
   const [dataUserId, setDataUserId] = useState('');
-  const [listShirt, setListShirt] = useState([]);
+  const [listMilk, setListMilk] = useState([]);
   const [search, setSearch] = useState('');
   const [loading, setLoading] = useState(Boolean);
 
@@ -45,10 +45,10 @@ const Shirt = (props: {navigation: any}) => {
 
   useEffect(() => {
     const handleLogin = async () => {
-      console.log('listShirt');
+      console.log('listMilk');
       setLoading(true);
-      setListShirt([]);
-      await fetch('https://musicfivestar.onrender.com/shirt/getAllShirt', {
+      setListMilk([]);
+      await fetch('https://milknodejs.onrender.com/milk/getAllMilk', {
         method: 'GET',
       })
         .then((response: any) => response.json())
@@ -56,8 +56,8 @@ const Shirt = (props: {navigation: any}) => {
           // Xử lý phản hồi từ API
           if (data.success) {
             // Đăng nhập thành công
-            console.log('listShirt', data.result);
-            setListShirt(data.result);
+            console.log('listMilk', data.result);
+            setListMilk(data.result);
             setLoading(false);
           } else {
             // Đăng nhập thất bại
@@ -78,27 +78,27 @@ const Shirt = (props: {navigation: any}) => {
   useEffect(() => {
     const handleSearch = async () => {
       setLoading(true);
-      setListShirt([]);
-      await fetch(
-        'https://musicfivestar.onrender.com/shirt/getAllShirt/search',
-        {
-          method: 'POST',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            search: search,
-          }),
+      setListMilk([]);
+      if (search === '') {
+        setSearch(' ');
+      }
+      await fetch('https://milknodejs.onrender.com/milk/getAllMilk/search', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
         },
-      )
+        body: JSON.stringify({
+          search: search,
+        }),
+      })
         .then((response: any) => response.json())
         .then((data: any) => {
           // Xử lý phản hồi từ API
           if (data.success) {
             // Đăng nhập thành công
-            console.log('listShirtSearch', data.result);
-            setListShirt(data.result);
+            console.log('listMilkSearch', data.result);
+            setListMilk(data.result);
             setLoading(false);
           } else {
             // Đăng nhập thất bại
@@ -114,35 +114,55 @@ const Shirt = (props: {navigation: any}) => {
     handleSearch();
   }, [search]);
 
+  const getDataProfile = async () => {
+    try {
+      const value = await AsyncStorage.getItem('user');
+      if (value !== null || value || '') {
+        navigation.navigate('Profile', {user: value});
+      } else {
+        navigation.navigate('SignIn');
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.container}>
         <NavBar
-          title={'List Shirt'}
+          title={'List Milk'}
           style={{backgroundColor: GetColors().MAIN}}
           titleStyle={{color: GetColors().WHITE}}
-          onPressLeft={() => navigation.navigate('Home')}
         />
-        <View style={styles.textInput}>
-          <TextInput
-            style={styles.inputContent}
-            placeholder="search"
-            placeholderTextColor="#000"
-            onChangeText={(text: string) => setSearch(text)}
-          />
-          <Image
-            style={styles.iconInput}
-            source={require('../../assets/search.png')}
-          />
+        <View style={styles.userSearch}>
+          <View style={styles.textInput}>
+            <TextInput
+              style={styles.inputContent}
+              placeholder="search"
+              placeholderTextColor="#000"
+              onChangeText={(text: string) => setSearch(text)}
+            />
+            <Image
+              style={styles.iconInput}
+              source={require('../../assets/search.png')}
+            />
+          </View>
+          <Pressable style={styles.user} onPress={getDataProfile}>
+            <Image
+              style={styles.iconUser}
+              source={require('../../assets/user.png')}
+            />
+          </Pressable>
         </View>
         <View style={styles.content}>
           {dataUser === 'admin' && (
             <Pressable
-              style={styles.shirt}
+              style={styles.milk}
               onPress={() => {
-                navigation.navigate('AddShirt');
+                navigation.navigate('AddMilk');
               }}>
-              <Text style={styles.addShirt}>+Add shirt</Text>
+              <Text style={styles.addMilk}>+Add milk</Text>
             </Pressable>
           )}
           <Pressable
@@ -165,10 +185,10 @@ const Shirt = (props: {navigation: any}) => {
           <Loading />
         ) : (
           <ScrollView style={styles.listOptions}>
-            {listShirt?.map(item => {
+            {listMilk?.map(item => {
               return (
                 <>
-                  <ShirtItem
+                  <MilkItem
                     key={`item${item}`}
                     name={item.name}
                     describe={item.describe}
@@ -176,8 +196,9 @@ const Shirt = (props: {navigation: any}) => {
                     arrowRight={require('../../assets/arrow-right.png')}
                     image={item.image}
                     onPress={() => {
-                      navigation.navigate('ShirtDetail', {
+                      navigation.navigate('MilkDetail', {
                         data: item,
+                        dataUser: dataUser,
                       });
                     }}
                   />
@@ -204,7 +225,7 @@ const styles = StyleSheet.create({
   content: {
     flexDirection: 'row',
   },
-  shirt: {
+  milk: {
     flex: 1,
   },
   textInput: {
@@ -216,17 +237,31 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginVertical: 20,
     marginHorizontal: 20,
+    flex: 1,
   },
   iconInput: {
     width: 18,
     height: 18,
     right: 8,
   },
+  userSearch: {
+    flexDirection: 'row',
+    paddingRight: 8,
+  },
+  user: {
+    paddingHorizontal: 4,
+    justifyContent: 'center',
+  },
+  iconUser: {
+    width: 24,
+    height: 24,
+    tintColor: '#0FA44A',
+  },
   inputContent: {
     fontSize: 18,
     flex: 1,
   },
-  addShirt: {
+  addMilk: {
     paddingHorizontal: 16,
     fontSize: 18,
     fontWeight: '700',
@@ -248,4 +283,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Shirt;
+export default Milk;

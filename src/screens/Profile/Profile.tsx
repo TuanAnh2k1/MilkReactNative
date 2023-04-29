@@ -16,7 +16,7 @@ const Profile = (props: {navigation: any}) => {
     const handleProfile = async () => {
       setLoading(true);
       setCheckProfile(false);
-      await fetch('https://musicfivestar.onrender.com/profile/getProfile', {
+      await fetch('https://milknodejs.onrender.com/profile/getProfile', {
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -70,7 +70,7 @@ const Profile = (props: {navigation: any}) => {
           title={'Profile'}
           style={{backgroundColor: GetColors().MAIN}}
           titleStyle={{color: GetColors().WHITE}}
-          onPressLeft={() => navigation.navigate('Home')}
+          onPressLeft={() => navigation.navigate('Milk')}
         />
         {loading ? (
           <Loading />
@@ -99,7 +99,7 @@ const Profile = (props: {navigation: any}) => {
                   </View>
                   <View style={styles.btnContent}>
                     <Button
-                      title="Sửa thông tin cá nhân"
+                      title="Cập nhật Profile"
                       onPress={() => {
                         navigation.navigate('UpdateProfile', {
                           profile: profile,
@@ -127,7 +127,7 @@ const Profile = (props: {navigation: any}) => {
                   </View>
                   <View style={styles.btnContent}>
                     <Button
-                      title="Thêm mới thông tin cá nhân"
+                      title="Thêm mới Profile"
                       onPress={() => {
                         navigation.navigate('CreateProfile', {
                           profile: profile,
@@ -150,6 +150,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: GetColors().BORDER,
+    paddingBottom: 16,
   },
   listOptions: {
     paddingHorizontal: 16,
@@ -171,7 +172,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
     fontSize: 20,
     fontWeight: '700',
-    color: GetColors().RED500,
+    color: '#0FA44A',
   },
   btn: {
     flex: 1,

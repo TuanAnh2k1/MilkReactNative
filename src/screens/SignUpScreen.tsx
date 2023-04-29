@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {
   Button,
   Image,
@@ -18,7 +18,7 @@ const SignUpScreen = (props: {navigation: any}) => {
   const handleSignup = () => {
     // Gửi thông tin đăng nhập đến API
     console.log(username, password, role);
-    fetch('https://musicfivestar.onrender.com/register', {
+    fetch('https://milknodejs.onrender.com/register', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -30,8 +30,8 @@ const SignUpScreen = (props: {navigation: any}) => {
         role: role,
       }),
     })
-      .then((response) => response.json())
-      .then((json) => {
+      .then(response => response.json())
+      .then(json => {
         // Xử lý phản hồi từ API
         if (json.message) {
           // Tạo tài khoản thành công
@@ -42,7 +42,7 @@ const SignUpScreen = (props: {navigation: any}) => {
           console.log(json.error);
         }
       })
-      .catch((error) => {
+      .catch(error => {
         console.error(error);
       });
   };

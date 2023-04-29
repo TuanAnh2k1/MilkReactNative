@@ -37,7 +37,7 @@ const SignInScreen = (props: {navigation: any}) => {
       autoHide: true,
       topOffset: 30,
     });
-    fetch('https://musicfivestar.onrender.com/login', {
+    fetch('https://milknodejs.onrender.com/login', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -65,7 +65,7 @@ const SignInScreen = (props: {navigation: any}) => {
           // Lưu thông tin đăng nhập
           storeData('user', json.user._id);
           storeData('role', json.user.role);
-          navigation.navigate('Shirt', {user: json.user.role});
+          navigation.navigate('Milk', {user: json.user.role});
         } else {
           // Đăng nhập thất bại
           console.log(json.error);

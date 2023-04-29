@@ -9,20 +9,7 @@ const Home = (props: {navigation: any}) => {
     try {
       const value = await AsyncStorage.getItem('role');
       if (value !== null || value || '') {
-        navigation.navigate('Shirt', {user: value});
-      } else {
-        navigation.navigate('SignIn');
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const getDataProfile = async () => {
-    try {
-      const value = await AsyncStorage.getItem('user');
-      if (value !== null || value || '') {
-        navigation.navigate('Profile', {user: value});
+        navigation.navigate('Milk', {user: value});
       } else {
         navigation.navigate('SignIn');
       }
@@ -44,13 +31,6 @@ const Home = (props: {navigation: any}) => {
           Make your design workflow easier and save your time
         </Text>
       </View>
-      <View style={styles.btnProfile}>
-        <Button
-          title="PROFILE"
-          onPress={getDataProfile}
-          color={GetColors().MAIN}
-        />
-      </View>
       <View style={styles.btnStarted}>
         <Button title="GET STARTED" onPress={getDataUser} />
       </View>
@@ -62,6 +42,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#0e0b1e',
+    paddingBottom: 8,
   },
   imgWellcome: {
     flex: 2,
@@ -89,10 +70,6 @@ const styles = StyleSheet.create({
   btnStarted: {
     paddingHorizontal: 50,
     paddingTop: 16,
-  },
-  btnProfile: {
-    paddingHorizontal: 50,
-    paddingTop: 46,
   },
 });
 
