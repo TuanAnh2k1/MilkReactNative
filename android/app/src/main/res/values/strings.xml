@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">reactAppBase</string>
+    <string name="facebook_app_id">3289845797997187</string>
+    <string name="facebook_client_token">3f9281a2a0ff7feaf062ce34acb34ea92e30041dcffda380b4ec139d5352bbd9</string>
 </resources>

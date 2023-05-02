@@ -114,11 +114,10 @@ const Milk = (props: {navigation: any}) => {
     handleSearch();
   }, [search]);
 
-  const getDataProfile = async () => {
+  const getDataProfile = () => {
     try {
-      const value = await AsyncStorage.getItem('user');
-      if (value !== null || value || '') {
-        navigation.navigate('Profile', {user: value});
+      if (dataUserId !== null || dataUserId || '') {
+        navigation.navigate('Profile', {user: dataUserId});
       } else {
         navigation.navigate('SignIn');
       }

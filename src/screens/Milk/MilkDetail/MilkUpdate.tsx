@@ -137,7 +137,7 @@ const MilkUpdate = (props: {navigation: any}) => {
         <View style={styles.btnText}>
           <Button
             title="Thoát"
-            color={GetColors().BG_MODAL}
+            color={GetColors().BLACK400}
             onPress={() => {
               navigation.navigate('MilkDetail', {
                 dataUser: dataUser,

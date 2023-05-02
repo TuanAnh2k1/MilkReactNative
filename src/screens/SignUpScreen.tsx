@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   Button,
   Image,
@@ -8,12 +8,18 @@ import {
   TextInput,
   View,
 } from 'react-native';
+import {AccessToken, LoginButton} from 'react-native-fbsdk-next';
+import {GoogleSignin} from 'react-native-google-signin';
 
 const SignUpScreen = (props: {navigation: any}) => {
   const {navigation} = props;
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [role, setRole] = useState('user');
+
+  useEffect(() => {
+    GoogleSignin.configure();
+  }, []);
 
   const handleSignup = () => {
     // Gửi thông tin đăng nhập đến API
@@ -82,6 +88,55 @@ const SignUpScreen = (props: {navigation: any}) => {
             source={require('../assets/hidden.png')}
           />
         </View>
+        <View style={{flexDirection: 'row', paddingTop: 32}}>
+          <LoginButton
+            onLoginFinished={(error, result) => {
+              if (error) {
+                console.log('login has error: ' + JSON.stringify(error));
+              } else if (result.isCancelled) {
+                console.log('login is cancelled.');
+              } else {
+                AccessToken.getCurrentAccessToken().then(data => {
+                  setUsername(data?.userID);
+                  setPassword('123');
+                  setRole('user');
+                  // console.log(data.accessToken.toString());
+                });
+              }
+            }}
+            onLogoutFinished={() => console.log('logout.')}
+          />
+          {/* <View style={styles.link}>
+            <Pressable
+              onPress={() => {
+                GoogleSignin.hasPlayServices()
+                  .then(hasPlayService => {
+                    if (hasPlayService) {
+                      GoogleSignin.signIn()
+                        .then(userInfo => {
+                          // setUsername(data?.userID);
+                          // setPassword('123');
+                          // setRole('user');
+                          console.log(JSON.stringify(userInfo));
+                        })
+                        .catch(e => {
+                          console.log(
+                            'ERROR IS hasPlayService: ' + JSON.stringify(e),
+                          );
+                        });
+                    }
+                  })
+                  .catch(e => {
+                    console.log('ERROR IS: ' + JSON.stringify(e));
+                  });
+              }}>
+              <Image
+                style={{width: 38, height: 38}}
+                source={require('../assets/google-plus.png')}
+              />
+            </Pressable>
+          </View> */}
+        </View>
         <View style={{paddingTop: 70}}>
           <Button title="SIGN UP" color={'tomato'} onPress={handleSignup} />
         </View>
@@ -136,6 +191,10 @@ const styles = StyleSheet.create({
     fontSize: 18,
     paddingVertical: 20,
     flex: 1,
+  },
+  link: {
+    flexDirection: 'row',
+    marginLeft: 16,
   },
 });
 

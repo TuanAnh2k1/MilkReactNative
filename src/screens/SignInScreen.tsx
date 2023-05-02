@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import Toast from 'react-native-toast-message';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {AccessToken, LoginButton} from 'react-native-fbsdk-next';
 
 const SignInScreen = (props: {navigation: any}) => {
   const {navigation} = props;
@@ -138,18 +139,30 @@ const SignInScreen = (props: {navigation: any}) => {
             Or connect with
           </Text>
           <View style={styles.link}>
-            <Image
-              style={styles.image}
-              source={require('../assets/facebook.png')}
+            <LoginButton
+              onLoginFinished={(error, result) => {
+                if (error) {
+                  console.log('login has error: ' + JSON.stringify(error));
+                } else if (result.isCancelled) {
+                  console.log('login is cancelled.');
+                } else {
+                  AccessToken.getCurrentAccessToken().then(data => {
+                    setUsername(data?.userID);
+                    setPassword('123');
+                    // console.log(data.accessToken.toString());
+                  });
+                }
+              }}
+              onLogoutFinished={() => console.log('logout.')}
             />
-            <Image
+            {/* <Image
               style={styles.image}
               source={require('../assets/google-plus.png')}
             />
             <Image
               style={{width: 38, height: 38}}
               source={require('../assets/twitter.png')}
-            />
+            /> */}
           </View>
         </View>
         <View style={styles.footer}>
