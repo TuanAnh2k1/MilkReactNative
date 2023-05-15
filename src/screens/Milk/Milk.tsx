@@ -13,6 +13,7 @@ import GetColors from '../../utils/CommonColors';
 import MilkItem from '../../components/MilkItem';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Loading from '../../components/Loading';
+import TabBar from '../../components/TabBar';
 
 const Milk = (props: {navigation: any}) => {
   const {navigation} = props;
@@ -207,6 +208,20 @@ const Milk = (props: {navigation: any}) => {
           </ScrollView>
         )}
       </View>
+      <View style={styles.contentTabbar}>
+        <Pressable style={styles.viewTabbar}>
+          <Image
+            source={require('../../assets/clipboard.png')}
+            style={[styles.iconTabbar, {tintColor: GetColors().MAIN}]}
+          />
+        </Pressable>
+        <Pressable style={styles.viewTabbar} onPress={getDataProfile}>
+          <Image
+            source={require('../../assets/user.png')}
+            style={styles.iconTabbar}
+          />
+        </Pressable>
+      </View>
     </View>
   );
 };
@@ -279,6 +294,20 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     color: GetColors().REDNOTI,
     paddingBottom: 8,
+  },
+  contentTabbar: {
+    flexDirection: 'row',
+    paddingVertical: 8,
+    backgroundColor: GetColors().TEXT_CONTENT,
+  },
+  viewTabbar: {
+    flex: 1,
+    alignItems: 'center',
+  },
+  iconTabbar: {
+    width: 32,
+    height: 32,
+    tintColor: GetColors().WHITE,
   },
 });
 

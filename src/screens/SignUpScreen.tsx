@@ -54,7 +54,7 @@ const SignUpScreen = (props: {navigation: any}) => {
   };
   return (
     <View style={styles.container}>
-      <Image style={styles.imgLogin} source={require('../assets/signup.jpg')} />
+      <Image style={styles.imgLogin} source={require('../assets/milk02.jpg')} />
       <View style={styles.content}>
         <Text style={styles.textLogin}>SIGN UP</Text>
         <View style={styles.textInput}>

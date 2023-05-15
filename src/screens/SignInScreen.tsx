@@ -79,7 +79,7 @@ const SignInScreen = (props: {navigation: any}) => {
 
   return (
     <View style={styles.container}>
-      {/* <Image style={styles.imgLogin} source={require('../assets/login.jpg')} /> */}
+      <Image style={styles.imgLogin} source={require('../assets/milk01.jpg')} />
       <View style={styles.content}>
         <ScrollView>
           <Text style={styles.textLogin}>SIGN IN</Text>

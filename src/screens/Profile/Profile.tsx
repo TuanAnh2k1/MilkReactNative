@@ -1,5 +1,13 @@
 import React, {useState, useEffect} from 'react';
-import {StyleSheet, View, ScrollView, Text, Button} from 'react-native';
+import {
+  StyleSheet,
+  View,
+  ScrollView,
+  Text,
+  Button,
+  Pressable,
+  Image,
+} from 'react-native';
 import {NavBar} from '../../components';
 import GetColors from '../../utils/CommonColors';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -61,6 +69,19 @@ const Profile = (props: {navigation: any}) => {
     storeData('user', '');
     storeData('role', '');
     navigation.navigate('SignIn');
+  };
+
+  const getDataUser = async () => {
+    try {
+      const value = await AsyncStorage.getItem('role');
+      if (value !== null || value || '') {
+        navigation.navigate('Milk', {user: value});
+      } else {
+        navigation.navigate('SignIn');
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -142,6 +163,20 @@ const Profile = (props: {navigation: any}) => {
           </ScrollView>
         )}
       </View>
+      <View style={styles.contentTabbar}>
+        <Pressable style={styles.viewTabbar} onPress={getDataUser}>
+          <Image
+            source={require('../../assets/clipboard.png')}
+            style={styles.iconTabbar}
+          />
+        </Pressable>
+        <Pressable style={styles.viewTabbar}>
+          <Image
+            source={require('../../assets/user.png')}
+            style={[styles.iconTabbar, {tintColor: GetColors().MAIN}]}
+          />
+        </Pressable>
+      </View>
     </View>
   );
 };
@@ -150,7 +185,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: GetColors().BORDER,
-    paddingBottom: 16,
   },
   listOptions: {
     paddingHorizontal: 16,
@@ -182,6 +216,20 @@ const styles = StyleSheet.create({
     flex: 1,
     borderRadius: 3,
     paddingHorizontal: 4,
+  },
+  contentTabbar: {
+    flexDirection: 'row',
+    paddingVertical: 8,
+    backgroundColor: GetColors().TEXT_CONTENT,
+  },
+  viewTabbar: {
+    flex: 1,
+    alignItems: 'center',
+  },
+  iconTabbar: {
+    width: 32,
+    height: 32,
+    tintColor: GetColors().WHITE,
   },
 });
 
