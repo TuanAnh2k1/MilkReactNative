@@ -101,7 +101,7 @@ const Single = (props: {navigation: any}) => {
         <ScrollView style={styles.content}>
           {dataSingle.reverse()?.map((item, index) => {
             return (
-              <View style={styles.list}>
+              <View style={styles.list} key={index}>
                 <View style={styles.contentImage}>
                   <Image
                     source={require('../../assets/sua1.jpg')}

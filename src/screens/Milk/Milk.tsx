@@ -185,11 +185,11 @@ const Milk = (props: {navigation: any}) => {
           <Loading />
         ) : (
           <ScrollView style={styles.listOptions}>
-            {listMilk?.map(item => {
+            {listMilk?.map((item, index) => {
               return (
                 <>
                   <MilkItem
-                    key={`item${item}`}
+                    key={index}
                     name={item.name}
                     describe={item.describe}
                     price={item.price}
