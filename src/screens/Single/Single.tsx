@@ -4,12 +4,15 @@ import {NavBar} from '../../components';
 import GetColors from '../../utils/CommonColors';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Loading from '../../components/Loading';
+import {Rating, AirbnbRating} from 'react-native-ratings';
 
 const Single = (props: {navigation: any}) => {
   const {navigation} = props;
   const [dataSingle, setDataSingle] = useState([]);
   const [updateStatus, setUpdateStatus] = useState(Boolean);
   const [loading, setLoading] = useState(Boolean);
+  const [is_Star, setIs_Star] = useState(0);
+  console.log(dataSingle);
 
   useEffect(() => {
     const handleSingle = async () => {
@@ -45,6 +48,62 @@ const Single = (props: {navigation: any}) => {
     handleSingle();
   }, []);
 
+  const handleRatingWrapper = async (ratedValue, itemData) => {
+    // Gọi handleRating với ratedValue và itemData
+    console.log('Đánh giá:', ratedValue);
+    console.log('Đánh giá:', itemData.idMilk);
+    try {
+      let resStar;
+      await fetch('https://milknodejs.onrender.com/milk/getMilk', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          _id: itemData.idMilk,
+        }),
+      })
+        .then(response => response.json())
+        .then(json => {
+          // Xử lý phản hồi từ API
+          // Update milk thành công
+          resStar = json.result.star;
+          console.log(json.result);
+          console.log(json.message);
+        });
+
+      if (!resStar) {
+        resStar = [];
+      }
+
+      await fetch('https://milknodejs.onrender.com/milk/updateMilk', {
+        method: 'PATCH',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          _id: itemData.idMilk,
+          star: [...resStar, Number(ratedValue)],
+        }),
+      })
+        .then(response => response.json())
+        .then(json => {
+          // Xử lý phản hồi từ API
+          if (json.message) {
+            // Tạo tài khoản thành công
+            console.log(json.message);
+          } else {
+            // Tạo tài khoản thất bại
+            console.log(json.error);
+          }
+        });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const updateSingle = item => {
     item.status = 1;
     console.log(item);
@@ -69,6 +128,7 @@ const Single = (props: {navigation: any}) => {
         address: item.address,
         quantity: item.quantity,
         status: 1,
+        is_Star: 1,
       }),
     })
       .then(response => response.json())
@@ -131,9 +191,26 @@ const Single = (props: {navigation: any}) => {
                   </View>
                 </View>
                 <View style={styles.updateSingle}>
-                  <View style={styles.btnCancel}>
-                    <Text>Cập nhật đơn hàng: </Text>
-                  </View>
+                  {item?.is_Star === 0 && (
+                    <View style={styles.btnCancel}>
+                      <Text>Cập nhật đơn hàng: </Text>
+                      <AirbnbRating
+                        count={5}
+                        reviews={[
+                          'Kém',
+                          'Tạm được',
+                          'Bình thường',
+                          'Tốt',
+                          'Xuất sắc',
+                        ]}
+                        defaultRating={0}
+                        size={20}
+                        onFinishRating={ratedValue => {
+                          handleRatingWrapper(ratedValue, item);
+                        }}
+                      />
+                    </View>
+                  )}
                   <View style={styles.btnSuccess}>
                     <Button
                       title="Đã nhận được hàng"

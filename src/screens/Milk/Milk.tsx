@@ -56,12 +56,10 @@ const Milk = (props: {navigation: any}) => {
         .then((data: any) => {
           // Xử lý phản hồi từ API
           if (data.success) {
-            // Đăng nhập thành công
             console.log('listMilk', data.result);
             setListMilk(data.result);
             setLoading(false);
           } else {
-            // Đăng nhập thất bại
             console.log(data.error);
             setLoading(false);
           }
@@ -97,12 +95,10 @@ const Milk = (props: {navigation: any}) => {
         .then((data: any) => {
           // Xử lý phản hồi từ API
           if (data.success) {
-            // Đăng nhập thành công
             console.log('listMilkSearch', data.result);
             setListMilk(data.result);
             setLoading(false);
           } else {
-            // Đăng nhập thất bại
             console.log(data.error);
             setLoading(false);
           }
@@ -187,9 +183,8 @@ const Milk = (props: {navigation: any}) => {
           <ScrollView style={styles.listOptions}>
             {listMilk?.map((item, index) => {
               return (
-                <>
+                <View key={index}>
                   <MilkItem
-                    key={index}
                     name={item.name}
                     describe={item.describe}
                     price={item.price}
@@ -202,7 +197,7 @@ const Milk = (props: {navigation: any}) => {
                       });
                     }}
                   />
-                </>
+                </View>
               );
             })}
           </ScrollView>

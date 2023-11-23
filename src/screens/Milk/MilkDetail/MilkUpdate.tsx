@@ -33,7 +33,7 @@ const MilkUpdate = (props: {navigation: any}) => {
   ]);
 
   const handleUpdateMilk = async () => {
-    // Gửi thông tin đăng nhập đến API
+    // Gửi thông tin cập nhập đến API
     await fetch('https://milknodejs.onrender.com/milk/updateMilk', {
       method: 'PATCH',
       headers: {

@@ -20,7 +20,6 @@ const AddMilk = (props: {navigation: any}) => {
   const [total, setTotal] = useState('');
 
   const handleAddMilk = async () => {
-    // Gửi thông tin đăng nhập đến API
     console.log(name, describe, image, price, supplier);
     await fetch('https://milknodejs.onrender.com/milk/createMilk', {
       method: 'POST',
@@ -41,7 +40,7 @@ const AddMilk = (props: {navigation: any}) => {
       .then(json => {
         // Xử lý phản hồi từ API
         if (json.message) {
-          // Tạo tài khoản thành công
+          // Tạo sp khoản thành công
           console.log(json?.message?.msgBody);
           navigation.navigate('Milk', {loading: true});
         } else {

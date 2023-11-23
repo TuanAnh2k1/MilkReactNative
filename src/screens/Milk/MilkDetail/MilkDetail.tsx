@@ -20,6 +20,16 @@ const MilkDetail = (props: {navigation: any}) => {
   const totals = Number(data.total);
 
   const [loading, setLoading] = useState(Boolean);
+  let Star;
+  console.log(data);
+
+  // useEffect(() => {
+  let starTotal = data?.star.reduce(function (accumulator, currentValue) {
+    return accumulator + currentValue;
+  }, 0);
+  Star = starTotal / data?.star.length;
+  Star = parseFloat(Star.toFixed(1));
+  // }, []);
 
   const handleDelete = async () => {
     setLoading(true);
@@ -98,6 +108,25 @@ const MilkDetail = (props: {navigation: any}) => {
         </View>
         <View style={styles.contentTotal}>
           <Text style={styles.total}>còn lại: {data.total}</Text>
+          {Star > 0 && (
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+              <Text
+                style={{
+                  marginRight: 6,
+                  color: 'black',
+                  fontWeight: 'bold',
+                  fontSize: 18,
+                }}>
+                {Star}/5
+              </Text>
+              <Image
+                source={require('../../../assets/star.png')}
+                style={styles.star}
+              />
+            </View>
+          )}
+        </View>
+        <View style={styles.contentTotal}>
           {quantity > totals && (
             <Text style={styles.errorTotal}>
               Số lượng bạn chọn vượt quá hàng trong kho
@@ -247,6 +276,11 @@ const styles = StyleSheet.create({
   btnText: {
     flex: 1,
     paddingHorizontal: 4,
+  },
+  star: {
+    width: 24,
+    height: 24,
+    tintColor: 'orange',
   },
 });
 
